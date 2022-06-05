@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="34217604-1aa4-457f-8096-19cf524cac5c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="foreachpoc2Flow" doc:id="e971da60-7832-4242-8746-482951aa4cad" >
+		<http:listener doc:name="Listener" doc:id="77e4547a-bafe-4c5f-bba9-a7ae14dd6012" config-ref="HTTP_Listener_config" path="test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b7a2f2eb-ba0a-46de-aaf8-c2e56c5ac527" />
+		<set-payload value="#[payload.a]" doc:name="Set Payload" doc:id="91155eae-6dfd-423c-b9c7-7864fcebcb7d" />
+		<foreach doc:name="For Each" doc:id="aa91f384-57e2-482f-a7a8-840af8276882" batchSize="2">
+			<logger level="INFO" doc:name="Logger" doc:id="4da159b3-0433-4e75-a363-9a48bccc6d50" message="#[payload]"/>
+		</foreach>
+		<logger level="INFO" doc:name="Logger" doc:id="fc2bc439-bc7e-4bad-97ff-596c8d18e1ce" message="#[payload]"/>
+	</flow>
+</mule>
